@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Passes</title>
+
+    <script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .passes {
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pass-card {
+            width: 90%;
+            max-width: 400px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .pass-card:hover { transform: scale(1.02); }
+
+        .pass-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .pass-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .pass-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .pass-action {
+            background-color: #1a73e8;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">My Passes</div>
+
+<div class="passes">
+    <div class="pass-card">
+        <div class="pass-info">
+            <img class="pass-logo" src="https://logowik.com/content/uploads/images/ac-transit2243.jpg">
+            <div class="pass-text">Regular 1 Ride</div>
+        </div>
+        <div class="pass-action" onclick="openTicket()">Tap to use</div>
+    </div>
+</div>
+
+<script>
+function openTicket() {
+    const win = window.open("about:blank", "_blank");
+
+    win.document.write(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AC Transit Token</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://unpkg.com/dayjs@1.11.10/dayjs.min.js"><\/script>
+
+    <style>
+        body { margin:0;font-family:Arial;background:white; }
+        .frame { width:100vw;height:100vh;display:flex;flex-direction:column; }
+
+        .block1 { padding:18px; }
+        .block1-title { font-weight:bold;font-size:18pt; }
+        .block1-sub { color:#555;font-size:11pt; }
+
+        #Logo_group {
+            flex:1;display:flex;justify-content:center;align-items:center;position:relative;
+        }
+
+        .pulse-ring {
+            position:absolute;width:220px;height:220px;border-radius:50%;
+            background:rgba(0,99,65,0.35);
+            animation:smoothPulse 3.5s ease-in-out infinite;
+            z-index:0;
+        }
+
+        .delay1 { animation-delay:1s; }
+        .delay2 { animation-delay:2s; }
+
+        .dark {
+            background:rgba(0,80,50,0.5);
+            width:240px;height:240px;
+            animation:smoothPulseDark 5s ease-in-out infinite;
+        }
+
+        @keyframes smoothPulse {
+            0%{transform:scale(0.5);opacity:0.4;}
+            50%{transform:scale(1.6);opacity:0.15;}
+            100%{transform:scale(0.5);opacity:0.4;}
+        }
+
+        @keyframes smoothPulseDark {
+            0%{transform:scale(0.5);opacity:0.45;}
+            50%{transform:scale(1.7);opacity:0.25;}
+            100%{transform:scale(0.5);opacity:0.45;}
+        }
+
+        #Logo {
+            width:130px;height:130px;border-radius:50%;
+            position:relative;z-index:10;
+        }
+
+        #time { text-align:center;font-size:36px;font-weight:bold;margin-top:10px; }
+
+        .local {
+            display:block;margin:12px auto;padding:10px 25px;
+            background:rgba(0,0,0,0.75);color:white;border-radius:8px;
+        }
+
+        .info_panel {
+            margin:20px;background:white;border-radius:12px;
+            padding:20px;text-align:center;
+            box-shadow:0 8px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+
+<body>
+<div class="frame">
+
+    <div class="block1">
+        <div class="block1-title">AC Transit</div>
+        <div class="block1-sub">Show operator your ticket</div>
+    </div>
+
+    <div id="Logo_group">
+        <div class="pulse-ring dark"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring delay1"></div>
+        <div class="pulse-ring delay2"></div>
+
+        <img id="Logo" src="https://logowik.com/content/uploads/images/ac-transit2243.jpg">
+    </div>
+
+    <div id="time">--:--</div>
+    <div class="local">Local</div>
+
+    <div class="info_panel">
+        <p style="font-size:18pt;">Adult Local 1 Day</p>
+        <p style="color:grey;">Oakland, CA</p>
+        <div id="expiration"></div>
+    </div>
+
+</div>
+
+<script>
+function updateTime() {
+    document.getElementById("time").innerText =
+        dayjs().format("h:mm:ss A");
+}
+
+const expirationTime = dayjs().add(1, 'day');
+document.getElementById("expiration").innerText =
+    "Expires on " + expirationTime.format("MMM D, YYYY • h:mm A");
+
+updateTime();
+setInterval(updateTime, 1000);
+<\/script>
+
+</body>
+</html>
+    `);
+
+    win.document.close();
+}
+</script>
+
+</body>
+</html>
